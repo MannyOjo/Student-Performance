@@ -4,36 +4,6 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Students performance in exams\n",
-    "#### This analysis seeks to explore the influence of various economic, personal, and social factors on students' academic performance\n",
-    "\n",
-    "### Aims:\n",
-    "1. How to improve students' performance in each test?\n",
-    "2. What major factors influence test scores?\n",
-    "3. What is the effectiveness of test preparation course?\n",
-    "\n",
-    "### Data Attributes:\n",
-    "1. Gender\n",
-    "2. Race/Ethnicity\n",
-    "3. Parental Level of Education\n",
-    "4. Lunch\n",
-    "5. Test Preparation Course\n",
-    "6. Math Score\n",
-    "7. Reading Score\n",
-    "8. Writing Score"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
     "### Import Libraries"
    ]
   },
@@ -499,16 +469,33 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Data Exploration: \n",
-    "### Overall Performance by Gender and \n",
-    "#### Race/ethnicity, Parental level of education, lunch type, and test preparation)\n"
+    "### Data Exploration: Overall Performance by Gender and (Race/ethnicity, Parental level of education, lunch type, and test preparation\n"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 8,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "count    1000.000000\n",
+       "mean       67.770667\n",
+       "std        14.257326\n",
+       "min         9.000000\n",
+       "25%        58.333333\n",
+       "50%        68.333333\n",
+       "75%        77.666667\n",
+       "max       100.000000\n",
+       "Name: overall score, dtype: float64"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
    "source": [
     "df['overall score'].describe()"
    ]
@@ -604,8 +591,10 @@
     }
    ],
    "source": [
-    "\n",
+    "#Transform the math score to normalize it.\n",
     "import math as m\n",
+    "\n",
+    "#Test of Normality for the Math score\n",
     "from statsmodels.graphics.gofplots import qqplot\n",
     "from scipy import stats\n",
     "\n",
@@ -640,6 +629,7 @@
     "    print (\"p={}\".format(p), \"\\n\")\n",
     "\n",
     "\n",
+    "# Math\n",
     "transform_vars('overall score', 'overall_t')\n",
     "compare_normality('overall score','overall_t')\n",
     "checkNormal('overall score') #Untransformed math score\n",
@@ -787,6 +777,14 @@
     }
    ],
    "source": [
+    "#Since the predictors are categorical, consider using ANOVA?\n",
+    "#For 1b, use categorical variable without dummying.\n",
+    "\n",
+    "# from statsmodels.formula.api import ols\n",
+    "\n",
+    "# fit = ols(\"Q('overall score') ~ C(gender) + C(lunch) + C(Q('race/ethnicity')) + C(Q('parental level of education')) + C(Q('test preparation course'))\", data=df).fit()\n",
+    "# fit.summary()\n",
+    "\n",
     "\n",
     "#before spliting data, create dummies for categorical variables (drop first column of each dummy group to avoid multicollinearity)\n",
     "df_d = pd.get_dummies(df, columns=['gender', 'race/ethnicity', 'lunch', 'test preparation course'], drop_first=True)\n",
@@ -1358,7 +1356,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "### Train and Test Models|"
+    "### Train and Test Models"
    ]
   },
   {
@@ -1738,7 +1736,11 @@
   },
   {
    "cell_type": "code",
+<<<<<<< HEAD
+   "execution_count": 262,
+=======
    "execution_count": 38,
+>>>>>>> sp-03
    "metadata": {},
    "outputs": [
     {
@@ -1748,18 +1750,30 @@
        "            max_depth=None, max_features=None, max_leaf_nodes=None,\n",
        "            min_impurity_decrease=0.0, min_impurity_split=None,\n",
        "            min_samples_leaf=1, min_samples_split=2,\n",
+<<<<<<< HEAD
+       "            min_weight_fraction_leaf=0.0, n_estimators=100, n_jobs=10,\n",
+=======
        "            min_weight_fraction_leaf=0.0, n_estimators=1000, n_jobs=100,\n",
+>>>>>>> sp-03
        "            oob_score=False, random_state=None, verbose=0,\n",
        "            warm_start=False)"
       ]
      },
+<<<<<<< HEAD
+     "execution_count": 262,
+=======
      "execution_count": 38,
+>>>>>>> sp-03
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
+<<<<<<< HEAD
+    "classifier=RandomForestClassifier(n_estimators=100, n_jobs=10)\n",
+=======
     "classifier=RandomForestClassifier(n_estimators=1000, n_jobs=100, max_features=None)\n",
+>>>>>>> sp-03
     "# y_trainy_train_bin.astype(int)\n",
     "classifier.fit(X_train,y3)\n",
     "\n",
@@ -1775,14 +1789,22 @@
   },
   {
    "cell_type": "code",
+<<<<<<< HEAD
+   "execution_count": 263,
+=======
    "execution_count": 39,
+>>>>>>> sp-03
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
+<<<<<<< HEAD
+      "Random Forest R squared\": 0.5333\n"
+=======
       "Random Forest R squared\": 0.5433\n"
+>>>>>>> sp-03
      ]
     }
    ],
@@ -1791,6 +1813,130 @@
     "print('Random Forest R squared\": %.4f' % classifier.score(X_test, y_test_bin))\n",
     "# classifier.predict(X_test)"
    ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Now Trying XGBoost"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 269,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import xgboost as xgb\n",
+    "from sklearn.metrics import roc_auc_score\n",
+    "# from sklearn.grid_search import GridSearchCV\n",
+    "clf = xgb.XGBClassifier( learning_rate =0.05, n_estimators=1000, max_depth=10, min_child_weight=1, gamma=0, subsample=0.9, colsample_bytree=0.9,\n",
+    "                         objective= 'binary:logistic', nthread=4, scale_pos_weight=1, seed=10)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 270,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[0]\tvalidation_0-logloss:0.689474\n",
+      "Will train until validation_0-logloss hasn't improved in 15 rounds.\n",
+      "[1]\tvalidation_0-logloss:0.684448\n",
+      "[2]\tvalidation_0-logloss:0.681735\n",
+      "[3]\tvalidation_0-logloss:0.677997\n",
+      "[4]\tvalidation_0-logloss:0.674564\n",
+      "[5]\tvalidation_0-logloss:0.671449\n",
+      "[6]\tvalidation_0-logloss:0.668319\n",
+      "[7]\tvalidation_0-logloss:0.667071\n",
+      "[8]\tvalidation_0-logloss:0.665433\n",
+      "[9]\tvalidation_0-logloss:0.66469\n",
+      "[10]\tvalidation_0-logloss:0.662864\n",
+      "[11]\tvalidation_0-logloss:0.662748\n",
+      "[12]\tvalidation_0-logloss:0.661312\n",
+      "[13]\tvalidation_0-logloss:0.660588\n",
+      "[14]\tvalidation_0-logloss:0.660087\n",
+      "[15]\tvalidation_0-logloss:0.658711\n",
+      "[16]\tvalidation_0-logloss:0.658442\n",
+      "[17]\tvalidation_0-logloss:0.658113\n",
+      "[18]\tvalidation_0-logloss:0.658906\n",
+      "[19]\tvalidation_0-logloss:0.659022\n",
+      "[20]\tvalidation_0-logloss:0.658808\n",
+      "[21]\tvalidation_0-logloss:0.659245\n",
+      "[22]\tvalidation_0-logloss:0.659379\n",
+      "[23]\tvalidation_0-logloss:0.659817\n",
+      "[24]\tvalidation_0-logloss:0.660041\n",
+      "[25]\tvalidation_0-logloss:0.659998\n",
+      "[26]\tvalidation_0-logloss:0.660457\n",
+      "[27]\tvalidation_0-logloss:0.660805\n",
+      "[28]\tvalidation_0-logloss:0.661207\n",
+      "[29]\tvalidation_0-logloss:0.662247\n",
+      "[30]\tvalidation_0-logloss:0.662459\n",
+      "[31]\tvalidation_0-logloss:0.663476\n",
+      "[32]\tvalidation_0-logloss:0.664109\n",
+      "Stopping. Best iteration:\n",
+      "[17]\tvalidation_0-logloss:0.658113\n",
+      "\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "XGBClassifier(base_score=0.5, booster='gbtree', colsample_bylevel=1,\n",
+       "       colsample_bytree=0.9, gamma=0, learning_rate=0.05, max_delta_step=0,\n",
+       "       max_depth=10, min_child_weight=1, missing=None, n_estimators=1000,\n",
+       "       n_jobs=1, nthread=4, objective='binary:logistic', random_state=0,\n",
+       "       reg_alpha=0, reg_lambda=1, scale_pos_weight=1, seed=10, silent=True,\n",
+       "       subsample=0.9)"
+      ]
+     },
+     "execution_count": 270,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "clf.fit(X_train, y_train_bin, early_stopping_rounds=15,  eval_metric=\"logloss\", eval_set=[(X_test, y_test_bin)])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 271,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "AUC ROC Score: 80.1745\n"
+     ]
+    }
+   ],
+   "source": [
+    "def best_ntree_score(estimator, X, y):\n",
+    "    \"\"\"\n",
+    "    This scorer uses the best_ntree_limit to return\n",
+    "    the best AUC ROC score\n",
+    "    \"\"\"\n",
+    "    try:\n",
+    "        y_predict = clf.predict_proba(X,ntree_limit=clf.best_ntree_limit)\n",
+    "    except AttributeError:\n",
+    "        y_predict = clf.predict_proba(X_test)\n",
+    "    return roc_auc_score(y, y_predict[:, 1])\n",
+    "\n",
+    "\n",
+    "print ('AUC ROC Score:',round((best_ntree_score(clf, X_train, y3)*100),4))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
   },
   {
    "cell_type": "code",
